@@ -1,0 +1,159 @@
+#!/bin/python3
+# code for creating a scenic art view for fall
+# import the turtle and the random function
+import turtle as trtl  
+import random 
+# set up the screen, add the drawing, and set the dimensions according to the picture
+wn = trtl.Screen()
+wn.setup(width = 680, height = 421)
+wn.bgpic("Tree For Project.png")
+
+# set the turtle size and speed
+Painter = trtl.Turtle()
+Painter.pensize(2.5)
+Painter.speed(50)
+
+# ask the user for a number between 1 and 25 to continue with the program
+user_number = int(input("Choose an  integer number between 1-25."))
+if user_number < 1 or user_number > 25:
+  print("Not a valid number, try again.")
+else:
+  # create 2 lists for the leaves and the color the leaves can be
+  Leaves_turtles = ["circle", "square", "triangle"]
+  Leaves_color = ["yellow", "brown", "red", "orange", "darkorange"]
+  # draw all the leaves in random locations on the tree with different colors
+  leaves = 0
+  print("Printing", user_number*5, "leaves. (Based on the number you chose times 5.)")
+  while (leaves < user_number*5):
+    xcoor = random.randint(-270, 315)
+    ycoor = random.randint(70, 190)
+    Painter.penup()
+    Painter.goto(xcoor, ycoor)
+    Painter.shape(Leaves_turtles[random.randint(0,2)])
+    Painter.color(Leaves_color[random.randint(0,4)])
+    Painter.fillcolor(Leaves_color[random.randint(0,4)])
+    Painter.pendown()
+    Painter.stamp()
+    leaves = leaves + 1
+  
+  if user_number % 2 == 0:
+    # create a new list for the color of the pumpkins
+    colorchoices = ["brown", "orange", "yellow", "red"]
+    
+    # 2 sets of new location variables used
+    x = -270
+    y = -200
+    x2 = -300
+    y2 = -170
+
+    # create the pumpkins by using a for loop and start at a new location (-270,-200)
+    Painter.speed(15)
+    print("Printing 5 pumpkins because you choose an even number.")
+    
+    for pumpkin in range (1, 6):
+      # choose a random color from the list fo
+      Pumpkin_color = random.randint(0,3)
+      Painter.setheading(0)
+      Painter.penup()
+      Painter.goto(x,y)
+      Painter.pendown()
+      
+      # create a pumpkins body
+      Pumpkin_counter = 0
+      while (Pumpkin_counter < 2):
+        Painter.color(colorchoices[Pumpkin_color])
+        Painter.fillcolor(colorchoices[Pumpkin_color])
+        Painter.begin_fill()
+        Painter.circle(20,180)
+        Painter.forward(25)
+        Pumpkin_counter = Pumpkin_counter + 1
+        Painter.end_fill() 
+        
+      # go to a new location to start creating the stems for the pumpkins.
+      Painter.penup()
+      Painter.goto(x-8,y+40)
+      Painter.pendown()
+      # create the stems for the pumpkins 
+      Painter.fillcolor("green")
+      Painter.begin_fill()
+      Painter.color("green")
+      Painter.setheading(45)
+      Painter.circle(8,360,4)
+      Painter.end_fill()
+      Painter.setheading(0)
+      
+      # draw the pumpkin's eyes 
+      triangle = 0
+      while (triangle < 2):
+        Painter.penup()
+        Painter.goto(x2,y2)
+        Painter.pendown()
+        Painter.color("black")
+        Painter.fillcolor("black")
+        Painter.begin_fill()
+        Painter.forward(5)
+        Painter.left(120)
+        Painter.forward(5)
+        Painter.left(120)
+        Painter.forward(5)
+        Painter.end_fill()
+        x2 = x2 + 30
+        y2 = y2 + 4
+        triangle = triangle + 1
+        
+      Painter.penup()
+      # draw the pumpkin's mouths
+      Painter.goto(x-22,y+15)
+      Painter.setheading(0)
+      Painter.pendown()
+      Painter.begin_fill()
+      Painter.forward(20)
+      Painter.goto(x-22,y+15)
+      Painter.setheading(280)
+      Painter.circle(10,160)
+      Painter.end_fill()
+      # increase all the x and y values for the next loop to go to a new position
+      x = x + 75
+      x2 = x2 + 15
+      y2 = y2 - 9
+  
+  else:
+    corn_color = ["indigo", "yellow"]
+    # draw corn if it is an odd number chosen
+    print("Printing 5 corn because you choose an odd number")
+   
+    # create 2 new variables for location
+    x = -270
+    y = -200
+    
+    for corn in range (1, 6):
+      Painter.penup()
+      Painter.goto(x,y)
+      Painter.pendown()
+      
+      # create the body of the corn
+      Painter.setheading(40)
+      Painter.pencolor("green")
+      Painter.fillcolor(corn_color[random.randint(0,1)])
+      Painter.begin_fill()
+      Painter.circle(30,100)
+      Painter.setheading(220)
+      Painter.circle(30,100)
+      Painter.end_fill()
+      
+      # make the leaves of the corn
+      Painter.fillcolor("lightgreen")
+      Painter.begin_fill()
+      Painter.circle(15,100)
+      Painter.setheading(140)
+      Painter.circle(15,100)
+      Painter.setheading(120)
+      Painter.circle(15,100)
+      Painter.setheading(300)
+      Painter.circle(15,100)
+      Painter.end_fill()
+      
+      x = x + 75
+
+Painter.hideturtle()
+wn.mainloop()
